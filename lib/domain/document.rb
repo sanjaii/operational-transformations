@@ -1,5 +1,5 @@
-class InvalidOperation < StandardError
-  def initialize(message = 'Transformations failed on the input')
+class InvalidTransformation < StandardError
+  def initialize(message = 'Transformation failed on the input')
     super
   end
 end
@@ -18,18 +18,14 @@ class Document
     (@cursor + count) < @stale.length
   end
 
-  public
-
-  attr_reader :stale
-
   def delete(count)
-    raise InvalidOperation unless valid_operation?(count)
+    raise InvalidTransformation unless valid_operation?(count)
 
     @stale = stale[0...cursor] + stale[(cursor + count)..]
   end
 
   def skip(count)
-    raise InvalidOperation unless valid_operation?(count)
+    raise InvalidTransformation unless valid_operation?(count)
 
     @cursor += count
   end
@@ -37,5 +33,13 @@ class Document
   def insert(str)
     @stale.insert(@cursor, str)
     @cursor += str.length
+  end
+
+  public
+
+  attr_reader :stale
+
+  def update(type, chars_or_count)
+    send(type.to_sym, chars_or_count)
   end
 end
