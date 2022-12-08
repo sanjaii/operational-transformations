@@ -13,7 +13,7 @@ class InputDeserializer
     data.fetch('stale')
   end
 
-  def actions
+  def operations
     data.fetch('operations')
   end
 end

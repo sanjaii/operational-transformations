@@ -12,19 +12,16 @@ class OperationalTransformationService
     deserializer.stale
   end
 
-  def actions
-    deserializer.actions
+  def operations
+    deserializer.operations
   end
 
   public
 
-  def output
-    operation.stale
-  end
-
-  def perform_actions
-    actions.each do |action|
-      document.update(*action.values)
+  def update_document
+    operations.each do |operation|
+      document.update(*operation.values)
     end
+    document.stale
   end
 end
