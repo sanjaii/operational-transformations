@@ -1,3 +1,5 @@
+require_relative '../helpers/error'
+
 class Document
   private
 
