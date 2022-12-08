@@ -1,9 +1,3 @@
-class InvalidTransformation < StandardError
-  def initialize(message = 'Transformation failed on the input')
-    super
-  end
-end
-
 class Document
   private
 
@@ -15,6 +9,8 @@ class Document
   end
 
   def valid_operation?(count)
+    raise InvalidType unless count.instance_of?(Integer)
+
     (@cursor + count) < @stale.length
   end
 
@@ -31,6 +27,8 @@ class Document
   end
 
   def insert(str)
+    raise InvalidType unless str.instance_of?(String)
+
     @stale.insert(@cursor, str)
     @cursor += str.length
   end
