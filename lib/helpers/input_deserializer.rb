@@ -3,8 +3,8 @@ class InputDeserializer
 
   attr_reader :data
 
-  def initialize(request)
-    @data = JSON.parse request.body.read
+  def initialize(data)
+    @data = data
   end
 
   public

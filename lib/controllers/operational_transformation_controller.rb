@@ -11,7 +11,8 @@ class OperationalTransformationController < Sinatra::Base
 
   post '/v1/operations/transform' do
     request.body.rewind
-    deserializer = InputDeserializer.new(request)
+    body = JSON.parse request.body.read
+    deserializer = InputDeserializer.new(body)
     document = Document.new(deserializer.stale)
     operational_transformation_service = OperationalTransformationService.new(deserializer, document)
 
