@@ -45,7 +45,7 @@ class Document
 
   attr_reader :stale
 
-  def method_missing(method_name, args, &block)
+  def method_missing(method_name, *args, &block)
     send(method_name, *args) || super if method_name.to_s == 'update'
   rescue NoMethodError
     raise InvalidOperation

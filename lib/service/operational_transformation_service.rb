@@ -20,7 +20,7 @@ class OperationalTransformationService
 
   def update_document
     operations.each do |operation|
-      document.update(operation.values)
+      document.update(operation['op'], operation['count'] || operation['chars'])
     end
     document.stale
   end
