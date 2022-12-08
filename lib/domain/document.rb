@@ -33,11 +33,21 @@ class Document
     @cursor += str.length
   end
 
+  def update(type, char_or_count)
+    send(type.to_sym, char_or_count)
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    super
+  end
+
   public
 
   attr_reader :stale
 
-  def update(type, chars_or_count)
-    send(type.to_sym, chars_or_count)
+  def method_missing(method_name, args, &block)
+    send(method_name, *args) || super if method_name.to_s == 'update'
+  rescue NoMethodError
+    raise InvalidOperation
   end
 end

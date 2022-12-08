@@ -9,3 +9,9 @@ class InvalidType < TypeError
     super
   end
 end
+
+class InvalidOperation < StandardError
+  def initialize(message = 'Invalid operation')
+    super
+  end
+end

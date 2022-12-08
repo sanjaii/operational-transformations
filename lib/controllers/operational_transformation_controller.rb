@@ -16,7 +16,7 @@ class OperationalTransformationController < Sinatra::Base
     operational_transformation_service = OperationalTransformationService.new(deserializer, document)
 
     { "latest": operational_transformation_service.update_document }.to_json
-  rescue InvalidTransformation, KeyError, InvalidType => e
+  rescue InvalidTransformation, InvalidOperation, KeyError, InvalidType => e
     status 400
     { "message": e.message }.to_json
   end
